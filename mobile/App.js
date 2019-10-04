@@ -68,6 +68,12 @@ const App = createAppContainer(
       navigationOptions: {
         header: null
       }
+    },
+    Configurar: {
+      screen: Configurar,
+      navigationOptions: {
+        header: null
+      }
     }
   })
 
@@ -75,6 +81,7 @@ const App = createAppContainer(
 
 import Store from './Store';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import Configurar from './Screens/Configurar';
 
 export default class Application extends Component {
   render() {

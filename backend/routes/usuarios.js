@@ -88,6 +88,8 @@ router.post('/token', function (req, res, next) {
         res.status(400).send('Erro desconhecido. Verifique suas credenciais e tente novamente.')
       }
     });
+  } else {
+    res.json({})
   }
 
 });

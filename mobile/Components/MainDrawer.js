@@ -83,22 +83,28 @@ class MainDrawer extends Component {
                             <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 16 }}>
                                 <View style={styles.user}>
                                     <View style={{ flex: 1 }}>
-                                        <Text style={{ color: '#000', fontSize: 20 }}>
-                                            {this.props.usuario.nome}
-                                        </Text>
-                                        <Text style={{ color: '#000', fontSize: 16 }}>
-                                            @{this.props.usuario.usuario}
-                                        </Text>
+                                        <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                            <View style={{ flex: 1 }}>
+                                                <Text style={{ color: '#000', fontSize: 20 }}>
+                                                    {this.props.usuario.nome}
+                                                </Text>
+                                                <Text style={{ color: '#000', fontSize: 16 }}>
+                                                    @{this.props.usuario.usuario}
+                                                </Text>
+                                            </View>
+                                            <View style={{}}>
+                                                <Icon onPress={() => { this.props.navigation.navigate('Configurar') }} name={'settings'} size={24} color="#444" />
+                                            </View>
+                                        </View>
                                         <View style={{ paddingTop: 24, flexDirection: 'row' }}>
                                             <Text style={{ marginRight: 16, color: '#000' }}>24 seguidores</Text>
                                             <Text style={{ color: '#000' }}>192 bleeps</Text>
                                         </View>
+                                        <View style={{}}>
+                                        </View>
                                     </View>
-                                    <View style={{}}>
-                                        <Icon onPress={() => { this.props.navigation.navigate('Perfil') }} name={'chevron-right'} size={24} color="#444" />
-                                    </View>
-                                </View>
-                            </View>
+                                </View >
+                            </View >
                             : <View />
                         }
                     </View>

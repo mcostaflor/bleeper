@@ -1,6 +1,6 @@
 export default {
     api: {
-        baseUrl: "http://192.168.0.37"
+        baseUrl: "http://192.168.100.33"
     },
     theme: {
 

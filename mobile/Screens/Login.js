@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, StyleSheet, Button, Text, AsyncStorage } from 'react-native';
+import { View, TextInput, StyleSheet, ActivityIndicator, Text, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import Toolbar from '../Components/Toolbar';
 import Axios from 'axios';
@@ -23,10 +23,12 @@ class Login extends Component {
     }
     state = {
         usuario: '',
-        senha: ''
+        senha: '',
+        logging: false
     }
 
     handleLogin = () => {
+        this.setState({ logging: true });
         Axios.post(`${config.api.baseUrl}/api/usuario/token`, {
             usuario: this.state.usuario,
             senha: this.state.senha
@@ -47,13 +49,16 @@ class Login extends Component {
                             });
                         }
                     });
-
+                    // alert("Deu bom")
                 } else {
                     alert("Usuário ou senha incorretos.")
                 }
             })
             .catch(error => {
                 alert('Não foi possível validar as credenciais com o servidor. Favor tentar novamente mais tarde.')
+            })
+            .finally(() => {
+                this.setState({ logging: false });
             });
     }
     render() {
@@ -69,20 +74,27 @@ class Login extends Component {
                 </View>
                 <View style={styles.container}>
                     <View style={{ minWidth: '80%' }}>
-                        <Text style={{ fontSize: 24, fontStyle: 'bold', marginBottom: 16, justifyContent: 'center' }}>
-                            Entre no Bleeper <Icon name={'chevron-right'} color={'#000'} size={24} />
-                        </Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 24, fontStyle: 'bold', marginBottom: 16, justifyContent: 'center', flex: 1 }}>
+                                Entre no Bleeper
+                            </Text>
+                            <ActivityIndicator hidesWhenStopped animating={this.state.logging} />
+                        </View>
                         <TextInput
                             onChangeText={text => { this.setState({ usuario: text }) }}
+                            autoCapitalize={'none'}
                             value={this.state.usuario}
                             placeholder={'Usuário ou e-mail'}
-                            style={{ marginBottom: 4, fontSize: 16, paddingVertical: 2, paddingHorizontal: 8, borderRadius: 8, borderWidth: 2, borderColor: config.theme.colors.main }}
+                            style={{ marginBottom: 4, fontSize: 16, paddingVertical: 2, paddingHorizontal: 8, borderRadius: 5, borderWidth: 2, borderColor: '#DDD' }}
                         />
                         <TextInput
                             onChangeText={text => { this.setState({ senha: text }) }}
+                            autoCapitalize={'none'}
+                            autoCompleteType={'password'}
+                            secureTextEntry
                             value={this.state.senha}
                             placeholder={'Senha'}
-                            style={{ marginBottom: 16, fontSize: 16, paddingVertical: 2, paddingHorizontal: 8, borderRadius: 8, borderWidth: 2, borderColor: config.theme.colors.main }} />
+                            style={{ marginBottom: 16, fontSize: 16, paddingVertical: 2, paddingHorizontal: 8, borderRadius: 5, borderWidth: 2, borderColor: '#DDD' }} />
 
                         <TouchableOpacity onPress={this.handleLogin} style={{ marginBottom: 4, backgroundColor: config.theme.colors.main, borderRadius: 8, paddingVertical: 8, alignItems: 'center', justifyContent: 'center' }}>
                             <View>
